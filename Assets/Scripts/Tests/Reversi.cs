@@ -34,17 +34,22 @@ namespace Tests
                 var r = row + dr;
                 var c = col + dc;
 
-                while (r >= 0 && r < 8 && c >= 0 && c < 8 && _board[r, c] != 0 && _board[r, c] != color)
+                while (ValidInBoard(r, c) && _board[r, c] != 0 && _board[r, c] != color)
                 {
                     r += dr;
                     c += dc;
                 }
 
-                if (r >= 0 && r < 8 && c >= 0 && c < 8 && _board[r, c] == color && (r, c) != (row + dr, col + dc))
+                if (ValidInBoard(r, c) && _board[r, c] == color && (r, c) != (row + dr, col + dc))
                     return true;
             }
 
             return false;
+        }
+
+        private static bool ValidInBoard(int r, int c)
+        {
+            return r is >= 0 and < 8 && c is >= 0 and < 8;
         }
 
         public void MakeMove(int row, int col, int color)
