@@ -1,53 +1,34 @@
-using System;
 using NUnit.Framework;
-using UnityEngine;
 
 namespace Tests
 {
     public class TestReversiRule
     {
+        private Reversi _reversi;
+
+        [SetUp]
+        public void Setup()
+        {
+            _reversi = new Reversi();
+        }
+
         [Test]
         public void TestInitialGame()
         {
-            var reversi = new Reversi();
-            Assert.AreEqual(1, reversi.GetCell(3, 3));
-            Assert.AreEqual(1, reversi.GetCell(4, 4));
-            Assert.AreEqual(2, reversi.GetCell(3, 4));
-            Assert.AreEqual(2, reversi.GetCell(4, 3));
-        }
-    }
-
-    public class Reversi
-    {
-        private readonly int[,] _board = new int[8, 8];
-
-        public Reversi()
-        {
-            // 0: empty, 1: black, 2: white
-            _board[3, 3] = 1;
-            _board[4, 4] = 1;
-            _board[3, 4] = 2;
-            _board[4, 3] = 2;
+            Assert.AreEqual(1, _reversi.GetCell(3, 3));
+            Assert.AreEqual(1, _reversi.GetCell(4, 4));
+            Assert.AreEqual(2, _reversi.GetCell(3, 4));
+            Assert.AreEqual(2, _reversi.GetCell(4, 3));
+            _reversi.PrintBoard();
         }
 
-        public double GetCell(int row, int col)
+        [Test]
+        public void FirstRound()
         {
-            return _board[row, col];
-        }
-        public void PrintBoard()
-        {
-            var line = "    1   2   3   4   5   6   7   8\n";
-            line += "  ---------------------------------\n";
-            for (var row = 0; row < 8; row++)
-            {
-                var player = " ";
-                for (var col = 0; col < 8; col++) player += _board[row, col] + "   ";
-
-                line += $"{row + 1} |{player}|\n";
-            }
-
-            line += "  ----------------------------------";
-            Debug.Log(line);
+            _reversi.MakeMove(2, 3, 2);
+            Assert.AreEqual(2, _reversi.GetCell(2, 3));
+            Assert.AreEqual(2, _reversi.GetCell(3, 3));
+            _reversi.PrintBoard();
         }
     }
 }
