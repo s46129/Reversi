@@ -1,4 +1,6 @@
+using System;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Tests
 {
@@ -31,6 +33,21 @@ namespace Tests
         public double GetCell(int row, int col)
         {
             return _board[row, col];
+        }
+        public void PrintBoard()
+        {
+            var line = "    1   2   3   4   5   6   7   8\n";
+            line += "  ---------------------------------\n";
+            for (var row = 0; row < 8; row++)
+            {
+                var player = " ";
+                for (var col = 0; col < 8; col++) player += _board[row, col] + "   ";
+
+                line += $"{row + 1} |{player}|\n";
+            }
+
+            line += "  ----------------------------------";
+            Debug.Log(line);
         }
     }
 }
