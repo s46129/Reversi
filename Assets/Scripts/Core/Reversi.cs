@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Tests
+namespace Core
 {
     public class Reversi
     {
@@ -25,7 +25,6 @@ namespace Tests
         {
             if (_board[row, col] != 0)
             {
-                throw new Exception("Cell is not empty");
                 return false;
             }
 
@@ -40,8 +39,10 @@ namespace Tests
                     c += dc;
                 }
 
-                if (ValidInBoard(r, c) && _board[r, c] == color && (r, c) != (row + dr, col + dc))
+                if (ValidInBoard(r, c) && _board[r, c] == color && (r != row + dr || c != col + dc))
+                {
                     return true;
+                }
             }
 
             return false;
